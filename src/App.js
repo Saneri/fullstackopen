@@ -6,9 +6,9 @@ const Button = (props) => {
 
 const Display = (props) => {
   return (
-    <h4>
-      {props.text}: {props.value}
-    </h4>
+    <div>
+      {props.text}: {props.value} {props.endingText}
+    </div>
   );
 };
 
@@ -16,6 +16,8 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+
+  const sum = good + neutral + bad;
 
   return (
     <div>
@@ -27,6 +29,9 @@ const App = () => {
       <Display text="good" value={good} />
       <Display text="neutral" value={neutral} />
       <Display text="bad" value={bad} />
+      <Display text="all" value={sum} />
+      <Display text="average" value={(good * 1 + bad * -1) / sum} />
+      <Display text="positive" value={good / sum} endingText="%" />
     </div>
   );
 };
