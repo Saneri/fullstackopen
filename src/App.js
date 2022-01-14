@@ -5,6 +5,9 @@ import axios from "axios";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import phonebookService from "./services/phonebook";
+
+const URL = "http://localhost:3001";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -13,10 +16,7 @@ const App = () => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    const url = "http://localhost:3001";
-    axios.get(`${url}/persons`).then((res) => {
-      setPersons(res.data);
-    });
+    phonebookService.getAll().then((persons) => setPersons(persons));
   }, []);
 
   const addPerson = (event) => {
@@ -33,6 +33,9 @@ const App = () => {
 
     setPersons(persons.concat(newPerson));
     setNewName("");
+    setNewNumber("");
+
+    axios.post(`${URL}/persons`, newPerson);
   };
 
   const handleNameChange = (event) => {
