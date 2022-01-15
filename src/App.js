@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
-
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import phonebookService from "./services/phonebook";
-
-const URL = "http://localhost:3001";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -30,12 +26,16 @@ const App = () => {
       name: newName,
       number: newNumber,
     };
-
-    setPersons(persons.concat(newPerson));
-    setNewName("");
-    setNewNumber("");
-
-    axios.post(`${URL}/persons`, newPerson);
+    phonebookService
+      .addPerson(newPerson)
+      .then((res) => {
+        setPersons(persons.concat({ ...newPerson, id: res.data.id }));
+        setNewName("");
+        setNewNumber("");
+      })
+      .catch(() => {
+        window.alert(`failed adding person ${JSON.stringify(newPerson)}`);
+      });
   };
 
   const handleNameChange = (event) => {
@@ -63,7 +63,12 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} />
+      <Persons
+        persons={persons}
+        filter={filter}
+        deletePerson={phonebookService.deletePerson}
+        setPersons={setPersons}
+      />
     </div>
   );
 };

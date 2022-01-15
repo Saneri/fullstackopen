@@ -7,6 +7,16 @@ const getAll = () => {
   return request.then((res) => res.data);
 };
 
+const addPerson = (newPerson) => {
+  return axios.post(`${URL}/persons`, newPerson);
+};
+
+const deletePerson = (id) => {
+  return axios.delete(`${URL}/persons/${id}`);
+};
+
 export default {
   getAll,
+  addPerson,
+  deletePerson,
 };

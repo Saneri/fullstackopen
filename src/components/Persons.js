@@ -1,5 +1,7 @@
 import React from "react";
 
+import DeleteButton from "./DeleteButton";
+
 const Persons = (props) => {
   return (
     <ul>
@@ -9,7 +11,13 @@ const Persons = (props) => {
         )
         .map((person) => (
           <li key={person.name}>
-            {person.name} {person.number}
+            {person.name} {person.number}{" "}
+            <DeleteButton
+              person={person}
+              deletePerson={props.deletePerson}
+              persons={props.persons}
+              setPersons={props.setPersons}
+            />
           </li>
         ))}
     </ul>
