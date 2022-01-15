@@ -15,8 +15,13 @@ const deletePerson = (id) => {
   return axios.delete(`${URL}/persons/${id}`);
 };
 
+const updateNumber = (id, number) => {
+  return axios.patch(`${URL}/persons/${id}`, { number });
+};
+
 export default {
   getAll,
   addPerson,
   deletePerson,
+  updateNumber,
 };

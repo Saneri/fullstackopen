@@ -17,8 +17,26 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    if (persons.find((person) => person.name === newName)) {
-      window.alert(`${newName} is already added to phonebook`);
+    const existingPerson = persons.find((person) => person.name === newName);
+    if (existingPerson) {
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        phonebookService
+          .updateNumber(existingPerson.id, newNumber)
+          .then((res) => {
+            setPersons(
+              persons.map((person) =>
+                person.id === existingPerson.id
+                  ? { ...person, number: newNumber }
+                  : person
+              )
+            );
+          })
+          .catch(`failed updating person ${JSON.stringify(existingPerson)}`);
+      }
       return;
     }
 
