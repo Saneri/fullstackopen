@@ -4,16 +4,34 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import phonebookService from "./services/phonebook";
+import Notification from "./components/Notification";
+import Error from "./components/Error";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [notification, setNotification] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     phonebookService.getAll().then((persons) => setPersons(persons));
   }, []);
+
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
+  const showError = (message) => {
+    setError(message);
+    setTimeout(() => {
+      setError(null);
+    }, 3000);
+  };
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -34,8 +52,13 @@ const App = () => {
                   : person
               )
             );
+            showNotification(`Modified ${existingPerson.name}`);
           })
-          .catch(`failed updating person ${JSON.stringify(existingPerson)}`);
+          .catch(
+            showError(
+              `failed updating person ${JSON.stringify(existingPerson)}`
+            )
+          );
       }
       return;
     }
@@ -50,9 +73,10 @@ const App = () => {
         setPersons(persons.concat({ ...newPerson, id: res.data.id }));
         setNewName("");
         setNewNumber("");
+        showNotification(`Added ${newPerson.name}`);
       })
       .catch(() => {
-        window.alert(`failed adding person ${JSON.stringify(newPerson)}`);
+        showError(`failed adding person ${JSON.stringify(newPerson)}`);
       });
   };
 
@@ -71,6 +95,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
+      <Error message={error} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h2>add a new</h2>
       <PersonForm
@@ -86,6 +112,8 @@ const App = () => {
         filter={filter}
         deletePerson={phonebookService.deletePerson}
         setPersons={setPersons}
+        showNotification={showNotification}
+        showError={showError}
       />
     </div>
   );

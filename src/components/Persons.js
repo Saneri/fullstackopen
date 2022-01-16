@@ -17,6 +17,8 @@ const Persons = (props) => {
               deletePerson={props.deletePerson}
               persons={props.persons}
               setPersons={props.setPersons}
+              showNotification={props.showNotification}
+              showError={props.showError}
             />
           </li>
         ))}

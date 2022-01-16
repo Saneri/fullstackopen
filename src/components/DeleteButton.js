@@ -1,6 +1,13 @@
 import React from "react";
 
-const deletePerson = (personToDelete, deletePerson, persons, setPersons) => {
+const deletePerson = (
+  personToDelete,
+  deletePerson,
+  persons,
+  setPersons,
+  showNotification,
+  showError
+) => {
   if (!window.confirm(`Delete ${personToDelete.name} ?`)) {
     return;
   }
@@ -8,9 +15,10 @@ const deletePerson = (personToDelete, deletePerson, persons, setPersons) => {
   deletePerson(personToDelete.id)
     .then(() => {
       setPersons(persons.filter((person) => person.id !== personToDelete.id));
+      showNotification(`Deleted ${personToDelete.name}`);
     })
     .catch(() => {
-      window.alert(`Error deleting ${JSON.stringify(personToDelete)}`);
+      showError(`Error deleting ${JSON.stringify(personToDelete)}`);
     });
 };
 
@@ -22,7 +30,9 @@ const DeleteButton = (props) => {
           props.person,
           props.deletePerson,
           props.persons,
-          props.setPersons
+          props.setPersons,
+          props.showNotification,
+          props.showError
         )
       }
     >
