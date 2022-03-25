@@ -1,8 +1,9 @@
+const { response } = require('express');
 const express = require('express');
 
 const PORT = 3001;
 
-const notes = [
+const persons = [
   {
     id: 1,
     name: 'Arto Hellas',
@@ -30,13 +31,22 @@ const app = express();
 app.get('/info', (_, res) => {
   res.send(
     `<div>Phonebook has info for ${
-      notes.length
+      persons.length
     } people</div><div>${new Date()}</div>`
   );
 });
 
 app.get('/api/persons', (_, res) => {
-  res.json(notes);
+  res.json(persons);
+});
+
+app.get('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const person = persons.find((person) => person.id === id);
+
+  if (!person) return res.status(404).end();
+
+  res.json(person);
 });
 
 app.listen(PORT, () => {
