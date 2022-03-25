@@ -1,41 +1,44 @@
+const express = require('express');
 
-const express = require('express')
-
-const PORT = 3001
+const PORT = 3001;
 
 const notes = [
-    { 
-      "id": 1,
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-    },
-    { 
-      "id": 2,
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-    },
-    { 
-      "id": 3,
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-    },
-    { 
-      "id": 4,
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-    }
-]
+  {
+    id: 1,
+    name: 'Arto Hellas',
+    number: '040-123456'
+  },
+  {
+    id: 2,
+    name: 'Ada Lovelace',
+    number: '39-44-5323523'
+  },
+  {
+    id: 3,
+    name: 'Dan Abramov',
+    number: '12-43-234345'
+  },
+  {
+    id: 4,
+    name: 'Mary Poppendieck',
+    number: '39-23-6423122'
+  }
+];
 
-const app = express()
+const app = express();
 
 app.get('/info', (_, res) => {
-    res.send(`<div>Phonebook has info for ${notes.length} people</div><div>${new Date()}</div>`)
-})
+  res.send(
+    `<div>Phonebook has info for ${
+      notes.length
+    } people</div><div>${new Date()}</div>`
+  );
+});
 
 app.get('/api/persons', (_, res) => {
-    res.json(notes)
-})
+  res.json(notes);
+});
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
