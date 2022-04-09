@@ -19,9 +19,11 @@ const updateNumber = (id, number) => {
   return axios.patch(`${URL}/persons/${id}`, { number });
 };
 
-export default {
+const phonebook = {
   getAll,
   addPerson,
   deletePerson,
   updateNumber,
 };
+
+export default phonebook;
