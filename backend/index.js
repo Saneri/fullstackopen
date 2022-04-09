@@ -1,5 +1,6 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
+const morgan = require('morgan');
 const { v4: uuidv4 } = require('uuid');
 
 const PORT = 3001;
@@ -30,6 +31,10 @@ let persons = [
 const app = express();
 
 app.use(express.json());
+morgan.token('body', (req, res) => JSON.stringify(req.body));
+app.use(
+  morgan(':method :url :status :res[content-length] - :response-time ms :body')
+);
 
 app.get('/info', (_, res) => {
   res.send(
