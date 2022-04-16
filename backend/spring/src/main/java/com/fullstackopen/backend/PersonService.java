@@ -1,9 +1,8 @@
 package com.fullstackopen.backend;
 
-import org.springframework.stereotype.Service;
-import com.fullstackopen.backend.Person;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
