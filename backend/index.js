@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const morgan = require('morgan');
@@ -30,6 +31,7 @@ let persons = [
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(
