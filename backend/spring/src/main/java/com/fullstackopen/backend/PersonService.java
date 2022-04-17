@@ -19,4 +19,8 @@ public class PersonService {
     public List<Person> getAllPersons() {
         return persons;
     }
+
+    public Integer getPersonCount() {
+        return persons.size();
+    }
 }
