@@ -18,6 +18,14 @@ public class Person {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     @Override
     public String toString() {
         return id + ", " + name + ", " + number;

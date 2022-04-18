@@ -31,6 +31,14 @@ public class PersonService {
                 .orElse(null);
     }
 
+    public boolean add(String name, String number) {
+        if (persons.stream().anyMatch(person -> person.getName().equals(name))) {
+            return false;
+        }
+        persons.add(new Person(name, number));
+        return true;
+    }
+
     public boolean deleteById(String id) {
         return persons.removeIf(person -> person.getId().toString().equals(id));
     }

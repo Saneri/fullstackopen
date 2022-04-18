@@ -1,5 +1,6 @@
-package com.fullstackopen.backend;
+package com.fullstackopen.backend.controllers;
 
+import com.fullstackopen.backend.PersonService;
 import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

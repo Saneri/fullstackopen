@@ -1,5 +1,7 @@
-package com.fullstackopen.backend;
+package com.fullstackopen.backend.controllers;
 
+import com.fullstackopen.backend.Person;
+import com.fullstackopen.backend.PersonService;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +30,11 @@ public class PersonController {
     @DeleteMapping("/persons/{id}")
     public void deletePerson(@PathVariable String id, HttpServletResponse res) {
         boolean removed = personService.deleteById(id);
-        if (removed) {
-            res.setStatus(204);
-        } else {
-            res.setStatus(404);
-        }
+        res.setStatus(removed ? 204 : 404);
+    }
+
+    @PostMapping("/persons")
+    public void addPerson(@RequestBody Person person) {
+        boolean added = personService.add(person.getName(), person.getNumber());
     }
 }
