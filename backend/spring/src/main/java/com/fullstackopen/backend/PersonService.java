@@ -23,4 +23,15 @@ public class PersonService {
     public Integer getPersonCount() {
         return persons.size();
     }
+
+    public Person findById(String id) {
+        return persons.stream()
+                .filter(person -> person.getId().toString().equals(id))
+                .findAny()
+                .orElse(null);
+    }
+
+    public boolean deleteById(String id) {
+        return persons.removeIf(person -> person.getId().toString().equals(id));
+    }
 }
