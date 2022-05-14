@@ -4,6 +4,7 @@ import com.fullstackopen.backend.Person;
 import com.fullstackopen.backend.PersonService;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,7 +35,7 @@ public class PersonController {
     }
 
     @PostMapping("/persons")
-    public void addPerson(@RequestBody Person person) {
+    public void addPerson(@Valid @RequestBody Person person) {
         boolean added = personService.add(person.getName(), person.getNumber());
     }
 }
