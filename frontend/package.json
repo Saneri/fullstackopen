@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "dotenv-webpack": "^7.1.0",
     "json-server": "^0.17.0"
   }
 }
